@@ -5,9 +5,14 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , http = require('http');
+  , http = require('http')
+  , mongo = require('mongodb')
+  , Server = mongo.Server
+  , Db = mongo.Db;
 
-var app = express();
+var app = express()
+  , server = new Server('localhost', 27017, {auto_reconnect: true})
+  , db = new Db('semantic', server);
 
 app.configure(function () {
   app.set('views', __dirname + '/views');
