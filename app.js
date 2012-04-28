@@ -29,7 +29,18 @@ app.configure('development', function () {
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
+db.open(function (err, db) {
+  console.log('connected to the db');
+
+  app.get('/', function (req, res) {
+    var items;
+    db.collection('items', function (err, collection) {
+      collection.find().toArray(function (err, results) {
+        res.render('index', {title: 'Hello', items: results });
+      });
+    });
+  });
+});
 
 http.createServer(app).listen(3000);
 
