@@ -32,13 +32,24 @@ app.configure('development', function () {
 db.open(function (err, db) {
   console.log('connected to the db');
 
-  app.get('/', function (req, res) {
-    var items;
+  function index(req, res, db, type) {
     db.collection('items', function (err, collection) {
-      collection.find().limit(20).sort({created_at: -1}).toArray(function (err, results) {
+      var options = {};
+      if (type) {
+        options.type = type;
+      }
+      collection.find(options).limit(20).sort({created_at: -1}).toArray(function (err, results) {
         res.render('index', {title: 'Hello', items: results });
       });
     });
+  }
+
+  app.get('/', function (req, res) {
+    index(req, res, db);
+  });
+
+  app.get(/^\/(episodes|posts|links)/, function (req, res) {
+    index(req, res, db, req.params[0].slice(0, -1));
   });
 });
 
