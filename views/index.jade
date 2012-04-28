@@ -4,5 +4,4 @@ block content
   h1= title
   p Welcome to #{title}
   each item in items
-    div.item
-      h3= item.title
+    include item

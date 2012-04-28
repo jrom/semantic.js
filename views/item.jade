@@ -1,0 +1,7 @@
+//- FIXME This should obviously be a dynamic include such as
+//- `include item.type` but Jade doesn't allow this.
+div.item(class= item.type)
+  case item.type
+    when 'link': include link
+    when 'post': include post
+    when 'episode': include episode
