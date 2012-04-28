@@ -35,7 +35,7 @@ db.open(function (err, db) {
   app.get('/', function (req, res) {
     var items;
     db.collection('items', function (err, collection) {
-      collection.find().toArray(function (err, results) {
+      collection.find().limit(20).sort({created_at: -1}).toArray(function (err, results) {
         res.render('index', {title: 'Hello', items: results });
       });
     });
