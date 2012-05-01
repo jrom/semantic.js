@@ -4,6 +4,7 @@ table.table.table-striped
   thead
     tr
       th Date
+      th Type
       th Title
       th Permalink
       th Author
@@ -11,6 +12,14 @@ table.table.table-striped
     each item in items
       tr
         td= moment(item.created_at).format('DD/MM/YY')
+        td
+          if item.type === 'episode'
+            i(class='icon-headphones')
+          if item.type === 'post'
+            i(class='icon-file')
+          if item.type === 'link'
+            i(class='icon-bookmark')
+          = ' ' + item.type
         td= item.title
         td= item.permalink
         td= item.author
