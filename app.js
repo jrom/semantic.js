@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , http = require('http')
+  , everyauth = require('everyauth')
   , mongo = require('mongodb')
   , Server = mongo.Server
   , Db = mongo.Db;
@@ -18,6 +19,44 @@ db.open(function (err, db) {
   console.log('connected to mongoDB');
 });
 
+function findOrCreateUser(provider) {
+  return function (session, token, secret, provider_user) {
+    var promise = this.Promise();
+    db.collection('users', function (err, collection) {
+      collection.findOne({provider: provider, provider_id: provider_user.id}, function (err, user) {
+        if (user) {
+          user.id = user._id;
+          promise.fulfill(user);
+        }
+        else {
+          collection.insert({ provider: provider, provider_id: provider_user.id, provider_raw: provider_user }, function (err, user) {
+            user = user[0]; // insert returns array of one element
+            user.id = user._id;
+            promise.fulfill(user);
+          });
+        }
+      });
+    });
+    return promise;
+  };
+}
+
+everyauth.everymodule.findUserById(function (_id, callback) {
+  console.log('trying to find: ', _id);
+  db.collection('users', function (err, collection) {
+    collection.findOne({_id: _id}, function (err, user) {
+      callback(user);
+    });
+  });
+});
+
+everyauth
+  .twitter
+  .consumerKey(process.env.TWITTER_KEY)
+  .consumerSecret(process.env.TWITTER_SECRET)
+  .findOrCreateUser(findOrCreateUser('twitter'))
+  .redirectPath('/');
+
 app.configure(function () {
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -27,9 +66,13 @@ app.configure(function () {
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
+  app.use(express.cookieParser(process.env.COOKIE_SECRET || 'sekret'));
+  app.use(express.session({ secret: process.env.SESSION_SECRET || 'sekret'}));
+  app.use(everyauth.middleware());
 });
 
 app.configure('development', function () {
+  everyauth.debug = true;
   app.use(express.errorHandler());
 });
 
