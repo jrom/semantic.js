@@ -69,6 +69,8 @@ app.configure('development', function () {
   app.use(express.errorHandler());
 });
 
+everyauth.helpExpress(app);
+
 function index(req, res, db, type) {
   db.collection('items', function (err, collection) {
     var options = {};
