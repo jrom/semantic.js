@@ -6,9 +6,9 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "*",
-    "jade": "*",
-    "mongodb": "*",
-    "everyauth": "*"
+    "express": "2.5.8"
+   , "jade": ">= 0.0.1"
+   , "mongodb": "*"
+   , "everyauth": "*"
   }
 }
