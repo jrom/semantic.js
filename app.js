@@ -1,4 +1,5 @@
 var express = require('express')
+  , moment = require('moment')
   , routes = require('./routes')
   , everyauth = require('everyauth')
   , mongo = require('mongodb')
@@ -69,6 +70,10 @@ app.configure('development', function () {
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
+app.helpers({
+  moment: moment
+});
+
 everyauth.helpExpress(app);
 
 function index(req, res, db, type) {
@@ -106,7 +111,11 @@ app.get(/^\/(episodes|posts|links)/, function (req, res) {
 });
 
 app.get('/admin', function (req, res) {
-  res.render('admin/index');
+  db.collection('items', function (err, collection) {
+    collection.find().sort({created_at: -1}).toArray(function (err, results) {
+      res.render('admin/index', { items: results });
+    });
+  });
 });
 
 app.get('/admin/new', function (req, res) {
