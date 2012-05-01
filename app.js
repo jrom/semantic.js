@@ -51,6 +51,8 @@ everyauth
   .redirectPath('/');
 
 app.configure(function () {
+  app.use(express.cookieParser(process.env.COOKIE_SECRET || 'sekret'));
+  app.use(express.session({ secret: (process.env.SESSION_SECRET || 'sekret')}));
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
@@ -58,10 +60,8 @@ app.configure(function () {
   app.use(express['static'](__dirname + '/public'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.cookieParser(process.env.COOKIE_SECRET || 'sekret'));
-  app.use(express.session({ secret: process.env.SESSION_SECRET || 'sekret'}));
   app.use(everyauth.middleware());
+  app.use(app.router);
 });
 
 app.configure('development', function () {
