@@ -1,17 +1,11 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
   , routes = require('./routes')
-  , http = require('http')
   , everyauth = require('everyauth')
   , mongo = require('mongodb')
   , Server = mongo.Server
   , Db = mongo.Db;
 
-var app = express()
+var app = express.createServer()
   , server = new Server('localhost', 27017, {auto_reconnect: true})
   , db = new Db('semantic', server);
 
@@ -96,6 +90,6 @@ app.get(/^\/(episodes|posts|links)/, function (req, res) {
   index(req, res, db, req.params[0].slice(0, -1));
 });
 
-http.createServer(app).listen(3000);
+app.listen(3000);
 
 console.log("Express server listening on port 3000");
