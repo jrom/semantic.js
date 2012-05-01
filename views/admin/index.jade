@@ -16,4 +16,4 @@ table.table.table-striped
         td= item.author
         td
           form(action='/admin/destroy/' + item._id, method='post', style='margin: 0')
-            button.btn.btn-mini.btn-danger Delete
+            button.btn.btn-mini.btn-danger(onclick= 'return confirm("Delete?");') Delete
