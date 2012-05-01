@@ -1,10 +1,22 @@
-!!!
-html
+!!!html
+html(lang='en')
   head
+    meta(charset='utf-8')
     title Semantic Admin
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/admin/bootstrap.css')
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    style
+      body { margin-top: 60px; }
   body
-    header
-      if everyauth.loggedIn
-        a(href='/profile')= everyauth.user.id
-    body!= body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          ul.nav
+            li
+              a(href= '/admin') Admin
+            li
+              a(href= '/admin/new') Nou episodi
+            li
+              a(href= '/') Back to Semàntic
+    .container
+      body!= body
