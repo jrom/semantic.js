@@ -138,6 +138,15 @@ app.post('/admin/new', function (req, res) {
   });
 });
 
+app.post('/admin/destroy/:id', function (req, res) {
+  var _id = mongo.ObjectID(req.params.id);
+  db.collection('items', function (err, collection) {
+    collection.remove({_id: _id}, function (err, results) {
+      res.redirect('/admin');
+    });
+  });
+});
+
 app.get('/:permalink', function (req, res, next) {
   show(req, res, db, req.params.permalink, next);
 });
