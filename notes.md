@@ -25,3 +25,14 @@ h1
 title: h1 + brand
 meta desc: intro post
 
+
+## TODO
+
+### Admin
+
++ List items
++ New item
+- Adapt form to post type
+- New item form validations
+- Edit item
++ Delete item
