@@ -105,6 +105,14 @@ app.get(/^\/(episodes|posts|links)/, function (req, res) {
   index(req, res, db, req.params[0].slice(0, -1));
 });
 
+app.get('/admin', function (req, res) {
+  res.render('admin/index');
+});
+
+app.get('/admin/new', function (req, res) {
+  res.render('admin/new');
+});
+
 app.get('/:permalink', function (req, res, next) {
   show(req, res, db, req.params.permalink, next);
 });

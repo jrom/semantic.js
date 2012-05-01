@@ -1,0 +1,10 @@
+!!!
+html
+  head
+    title Semantic Admin
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    header
+      if everyauth.loggedIn
+        a(href='/profile')= everyauth.user.id
+    body!= body
