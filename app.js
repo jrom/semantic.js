@@ -83,12 +83,30 @@ function index(req, res, db, type) {
   });
 }
 
+function show(req, res, db, permalink, next) {
+  db.collection('items', function (err, collection) {
+    var options = { permalink: permalink};
+    collection.findOne(options, function (err, item) {
+      if (item) {
+        res.render('show', {title: 'Some item', item: item });
+      }
+      else {
+        next();
+      }
+    });
+  });
+}
+
 app.get('/', function (req, res) {
   index(req, res, db);
 });
 
 app.get(/^\/(episodes|posts|links)/, function (req, res) {
   index(req, res, db, req.params[0].slice(0, -1));
+});
+
+app.get('/:permalink', function (req, res, next) {
+  show(req, res, db, req.params.permalink, next);
 });
 
 app.listen(3000);
