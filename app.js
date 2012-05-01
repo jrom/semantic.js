@@ -66,7 +66,7 @@ app.configure(function () {
 
 app.configure('development', function () {
   everyauth.debug = true;
-  app.use(express.errorHandler());
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 everyauth.helpExpress(app);
