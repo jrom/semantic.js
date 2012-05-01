@@ -76,7 +76,15 @@ app.helpers({
 
 everyauth.helpExpress(app);
 
-function index(req, res, db, type) {
+function index(req, res, db, resource) {
+  var type;
+  if (resource === 'podcast') {
+    type = 'episode';
+  }
+  else if (resource) { // links, posts
+    type = resource.slice(0, -1);
+  }
+
   db.collection('items', function (err, collection) {
     var options = {};
     if (type) {
@@ -106,8 +114,8 @@ app.get('/', function (req, res) {
   index(req, res, db);
 });
 
-app.get(/^\/(episodes|posts|links)/, function (req, res) {
-  index(req, res, db, req.params[0].slice(0, -1));
+app.get(/^\/(podcast|posts|links)$/, function (req, res) {
+  index(req, res, db, req.params[0]);
 });
 
 app.get('/admin', function (req, res) {

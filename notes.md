@@ -1,10 +1,9 @@
 
 
 /
-
 /posts
 /links
-/episodes
+/podcast
 
 /archive
 
