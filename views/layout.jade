@@ -5,5 +5,8 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     header
-      a(href='/auth/twitter') Login via Twitter
-    block content
+      if everyauth.loggedIn
+        a(href='/profile')= everyauth.user.id
+      else
+        a(href='/auth/twitter') Login via Twitter
+    body!= body
