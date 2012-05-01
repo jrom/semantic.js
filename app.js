@@ -122,6 +122,14 @@ app.get('/admin/new', function (req, res) {
   res.render('admin/new');
 });
 
+app.post('/admin/new', function (req, res) {
+  db.collection('items', function (err, collection) {
+    collection.insert(req.body, function (err, results) {
+      res.redirect('/admin');
+    });
+  });
+});
+
 app.get('/:permalink', function (req, res, next) {
   show(req, res, db, req.params.permalink, next);
 });
