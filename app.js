@@ -138,6 +138,28 @@ app.post('/admin/new', function (req, res) {
   });
 });
 
+app.get('/admin/edit/:id', function (req, res) {
+  var _id = mongo.ObjectID(req.params.id);
+  db.collection('items', function (err, collection) {
+    collection.findOne({_id: _id}, function (err, item) {
+      if (item) {
+        res.render('admin/edit', { item: item });
+      }
+      else {
+        res.redirect('/admin');
+      }
+    });
+  });
+});
+
+app.post('/admin/update/:id', function (req, res) {
+  var _id = mongo.ObjectID(req.params.id);
+  db.collection('items', function (err, collection) {
+    console.log('TODO!');
+    res.redirect('/admin');
+  });
+});
+
 app.post('/admin/destroy/:id', function (req, res) {
   var _id = mongo.ObjectID(req.params.id);
   db.collection('items', function (err, collection) {

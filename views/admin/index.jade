@@ -20,7 +20,8 @@ table.table.table-striped
           if item.type === 'link'
             i(class='icon-bookmark')
           = ' ' + item.type
-        td= item.title
+        td
+          a(href= '/admin/edit/' + item._id)= item.title
         td= item.permalink
         td= item.author
         td

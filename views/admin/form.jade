@@ -1,0 +1,37 @@
+- var is_new = (typeof item === 'undefined');
+- var item = item || {};
+- var url = is_new ? '/admin/new' : '/admin/update/' + item._id;
+form.form-horizontal(action= url, method= 'post')
+  fieldset
+    .control-group
+      label.control-label(for='input-type') Type
+      .controls
+        label.radio Episode
+          input(name='type', type='radio', value='episode')
+        label.radio Post
+          input(name='type', type='radio', value='post')
+        label.radio Link
+          input(name='type', type='radio', value='link')
+    .control-group
+      label.control-label(for='input-title') Title
+      .controls
+        input(name='title', id='input-title', class='input-xlarge', type='text', value=item.title)
+    .control-group
+      label.control-label(for='input-permalink') Permalink
+      .controls
+        input(name='permalink', id='input-permalink', class='input-xlarge', type='text', value=item.permalink)
+    .control-group
+      label.control-label(for='input-url') URL
+      .controls
+        input(name='url', id='input-url', class='input-xlarge', type='text', value=item.url)
+    .control-group
+      label.control-label(for='input-number') Number
+      .controls
+        input(name='number', id='input-number', class='input-mini', type='text', value=item.number)
+    .control-group
+      label.control-label(for='input-body') Body
+      .controls
+        textarea(name='body', id='input-body', class='input-xlarge', type='text', rows=10)= item.body
+    .form-actions
+      button(type='submit').btn.btn-primary Desar
+      button.btn Cancel.lar

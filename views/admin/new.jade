@@ -1,36 +1,4 @@
 h2 Nova entrada
 
-form.form-horizontal(action='/admin/new', method='post')
-  fieldset
-    .control-group
-      label.control-label(for='input-type') Type
-      .controls
-        label.radio Episode
-          input(name='type', type='radio', value='episode')
-        label.radio Post
-          input(name='type', type='radio', value='post')
-        label.radio Link
-          input(name='type', type='radio', value='link')
-    .control-group
-      label.control-label(for='input-title') Title
-      .controls
-        input(name='title', id='input-title', class='input-xlarge', type='text')
-    .control-group
-      label.control-label(for='input-permalink') Permalink
-      .controls
-        input(name='permalink', id='input-permalink', class='input-xlarge', type='text')
-    .control-group
-      label.control-label(for='input-url') URL
-      .controls
-        input(name='url', id='input-url', class='input-xlarge', type='text')
-    .control-group
-      label.control-label(for='input-number') Number
-      .controls
-        input(name='number', id='input-number', class='input-mini', type='text')
-    .control-group
-      label.control-label(for='input-body') Body
-      .controls
-        textarea(name='body', id='input-body', class='input-xlarge', type='text', rows=10)
-    .form-actions
-      button(type='submit').btn.btn-primary Desar
-      button.btn Cancel.lar
+include form
+
