@@ -10,6 +10,9 @@ var app = express.createServer()
   , server = new Server('localhost', 27017, {auto_reconnect: true})
   , db = new Db('semantic', server);
 
+var Item = require('./models/item.js')(db)
+  , User = require('./models/user.js')(db);
+
 db.open(function (err, db) {
   console.log('connected to mongoDB');
 });
