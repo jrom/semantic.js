@@ -20,20 +20,18 @@ db.open(function (err, db) {
 function findOrCreateUser(provider) {
   return function (session, token, secret, provider_user) {
     var promise = this.Promise();
-    db.collection('users', function (err, collection) {
-      collection.findOne({provider: provider, provider_id: provider_user.id}, function (err, user) {
-        if (user) {
+    User.mongo('findOne', {provider: provider, provider_id: provider_user.id}, function (err, user) {
+      if (user) {
+        user.id = user._id;
+        promise.fulfill(user);
+      }
+      else {
+        User.mongo('insert', { provider: provider, provider_id: provider_user.id, provider_raw: provider_user }, function (err, user) {
+          user = user[0]; // insert returns array of one element
           user.id = user._id;
           promise.fulfill(user);
-        }
-        else {
-          collection.insert({ provider: provider, provider_id: provider_user.id, provider_raw: provider_user }, function (err, user) {
-            user = user[0]; // insert returns array of one element
-            user.id = user._id;
-            promise.fulfill(user);
-          });
-        }
-      });
+        });
+      }
     });
     return promise;
   };
