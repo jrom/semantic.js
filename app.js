@@ -118,10 +118,8 @@ app.get(/^\/(podcast|posts|links)$/, function (req, res) {
 });
 
 app.get('/admin', function (req, res) {
-  db.collection('items', function (err, collection) {
-    collection.find().sort({created_at: -1}).toArray(function (err, results) {
-      res.render('admin/index', { items: results });
-    });
+  Item.mongo('findArray', {}, {sort: {created_at: -1}}, function (err, results) {
+    res.render('admin/index', { items: results });
   });
 });
 
@@ -130,41 +128,33 @@ app.get('/admin/new', function (req, res) {
 });
 
 app.post('/admin/new', function (req, res) {
-  db.collection('items', function (err, collection) {
-    collection.insert(req.body, function (err, results) {
-      res.redirect('/admin');
-    });
+  Item.mongo('insert', req.body, function (err, results) {
+    res.redirect('/admin');
   });
 });
 
 app.get('/admin/edit/:id', function (req, res) {
   var _id = mongo.ObjectID(req.params.id);
-  db.collection('items', function (err, collection) {
-    collection.findOne({_id: _id}, function (err, item) {
-      if (item) {
-        res.render('admin/edit', { item: item });
-      }
-      else {
-        res.redirect('/admin');
-      }
-    });
+  Item.mongo('findOne', {_id: _id}, function (err, item) {
+    if (item) {
+      res.render('admin/edit', { item: item });
+    }
+    else {
+      res.redirect('/admin');
+    }
   });
 });
 
 app.post('/admin/update/:id', function (req, res) {
   var _id = mongo.ObjectID(req.params.id);
-  db.collection('items', function (err, collection) {
-    console.log('TODO!');
-    res.redirect('/admin');
-  });
+  console.log('TODO! Update item ' + _id);
+  res.redirect('/admin');
 });
 
 app.post('/admin/destroy/:id', function (req, res) {
   var _id = mongo.ObjectID(req.params.id);
-  db.collection('items', function (err, collection) {
-    collection.remove({_id: _id}, function (err, results) {
-      res.redirect('/admin');
-    });
+  Item.mongo('remove', {_id: _id}, function (err, results) {
+    res.redirect('/admin');
   });
 });
 
