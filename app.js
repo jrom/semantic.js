@@ -75,8 +75,10 @@ app.helpers({
 
 everyauth.helpExpress(app);
 
-function index(req, res, db, resource) {
-  var type;
+function index(req, res, resource) {
+  var type
+    , options = {};
+
   if (resource === 'podcast') {
     type = 'episode';
   }
@@ -84,37 +86,33 @@ function index(req, res, db, resource) {
     type = resource.slice(0, -1);
   }
 
-  db.collection('items', function (err, collection) {
-    var options = {};
-    if (type) {
-      options.type = type;
-    }
-    collection.find(options).limit(20).sort({created_at: -1}).toArray(function (err, results) {
-      res.render('index', {title: 'Hello', items: results });
-    });
+  if (type) {
+    options.type = type;
+  }
+
+  Item.mongo('findArray', options, {limit: 20, sort: {created_at: -1}}, function (err, results) {
+    res.render('index', {title: 'Hello', items: results });
   });
 }
 
-function show(req, res, db, permalink, next) {
-  db.collection('items', function (err, collection) {
-    var options = { permalink: permalink};
-    collection.findOne(options, function (err, item) {
-      if (item) {
-        res.render('show', {title: 'Some item', item: item });
-      }
-      else {
-        next();
-      }
-    });
+function show(req, res, permalink, next) {
+  var options = { permalink: permalink};
+  Item.mongo('findOne', options, function (err, item) {
+    if (item) {
+      res.render('show', {title: 'Some item', item: item });
+    }
+    else {
+      next();
+    }
   });
 }
 
 app.get('/', function (req, res) {
-  index(req, res, db);
+  index(req, res);
 });
 
 app.get(/^\/(podcast|posts|links)$/, function (req, res) {
-  index(req, res, db, req.params[0]);
+  index(req, res, req.params[0]);
 });
 
 app.get('/admin', function (req, res) {
@@ -159,7 +157,7 @@ app.post('/admin/destroy/:id', function (req, res) {
 });
 
 app.get('/:permalink', function (req, res, next) {
-  show(req, res, db, req.params.permalink, next);
+  show(req, res, req.params.permalink, next);
 });
 
 app.listen(3000);
