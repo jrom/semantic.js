@@ -40,10 +40,8 @@ function findOrCreateUser(provider) {
 }
 
 everyauth.everymodule.findUserById(function (_id, callback) {
-  db.collection('users', function (err, collection) {
-    collection.findOne({_id: mongo.ObjectID(_id)}, function (err, user) {
-      callback(err, user);
-    });
+  User.mongo('findOne', {_id: mongo.ObjectID(_id)}, function (err, user) {
+    callback(err, user);
   });
 });
 
