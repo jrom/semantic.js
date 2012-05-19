@@ -1,2 +1,11 @@
-h3
-  a(href= item.permalink)= item.title
+header
+  h2
+    a(href= item.permalink)= item.title
+  ul.metadata
+    li.author Jordi
+    li.comments 2 comments
+    li.date
+      date(datetime='2012-04-12') 2 days ago
+    li.tags #SEO #socialmedia
+
+.body= item.body

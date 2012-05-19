@@ -8,12 +8,16 @@ body {
   }
 
   > .wrapper {
+    z-index: 2;
+    position: relative;
     .clearfix();
     width: @totalWidth;
-    margin: -20px auto 0;
+    margin: 0 auto 0;
 
     > .notebook {
-      width: @notebookWidth;
+      width: @notebookWidth - (@columnWidth + @paperPaddingLeftWidth) - @paperPaddingRightWidth;
+      padding-left: @columnWidth + @paperPaddingLeftWidth;
+      padding-right: @paperPaddingRightWidth;
       float: left;
     }
 
@@ -23,6 +27,21 @@ body {
       padding-top: 60px;
       padding-left: @sideBarPaddingLeftWidth;
       padding-right: @sideBarPaddingRightWidth;
+    }
+  }
+
+  > .notebook-hack {
+    position: fixed;
+    top: @headerHeight;
+    bottom: 0;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    > div {
+      width: @totalWidth;
+      margin: 0 auto 0;
+      height: 100%;
+      background: url('/images/notebook_bg.png') repeat-y;
     }
   }
 }

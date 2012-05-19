@@ -654,3 +654,8 @@
   }
 }
 
+.sprite(@width, @height, @x, @y, @file: url(/images/sprite.png)) {
+  display: block;
+  .size(@height, @width);
+  background: transparent @file no-repeat -@x -@y;
+}
