@@ -629,3 +629,28 @@
   }
 
 }
+
+.button-mixin(@bg_color: @buttonBackground, @text_color: @buttonColor) {
+  #gradient .vertical-three-colors(@bg_color, @bg_color, 60%, darken(@bg_color, 5%));
+  .border-radius(3px);
+  border: 1px solid darken(@bg_color, 20%);
+  border-bottom-color: darken(@bg_color, 25%);
+  .box-shadow(~'inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 2px rgba(0, 0, 0, 0.12)');
+  color: @text_color;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+  &:hover {
+    cursor: pointer;
+    #gradient .vertical-three-colors(lighten(@bg_color, 2%), lighten(@bg_color, 2%), 60%, darken(@bg_color, 5%));
+    border: 1px solid darken(@bg_color, 25%);
+    border-bottom-color: darken(@bg_color, 30%);
+  }
+  &:active {
+    #gradient .vertical(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.0));
+    border: 1px solid darken(@bg_color, 25%);
+    border-bottom-color: darken(@bg_color, 30%);
+    .box-shadow(~'inset 0 2px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.5)');
+    color: darken(@text_color, 20%);
+    text-shadow: none;
+  }
+}
+

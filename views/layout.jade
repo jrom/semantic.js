@@ -7,17 +7,16 @@ html
 
   body
     header
-      if everyauth.loggedIn
-        a(href='/profile')= everyauth.user.id
-      else
-        a(href='/auth/twitter') Login via Twitter
-    aside
-      p El podcast en català d'informàtica i noves tecnologies fet per enginyers informàtics.
-      a Més sobre nosaltres
-      .button.gray.twitter Segueix-nos a 
-        strong Twitter
-      .button.gray.rss Subscriu-te al 
-        strong RSS
-      .button.gray.itunes Subscriu-te a 
-        strong iTunes
-    #content!= body
+    .wrapper
+      .notebook!= body
+      aside.sidebar
+        section.intro
+          p El podcast en català d'informàtica i noves tecnologies fet per enginyers informàtics.
+          a.with_arrow(href='/about') Més sobre nosaltres
+        section.social
+          .button.gray.twitter Segueix-nos a 
+            strong Twitter
+          .button.gray.rss Subscriu-te al 
+            strong RSS
+          .button.gray.itunes Subscriu-te a 
+            strong iTunes

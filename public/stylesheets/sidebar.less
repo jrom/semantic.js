@@ -1,0 +1,31 @@
+aside.sidebar {
+  font-size: 18px;
+  line-height: 1.2em;
+  color: @sideBarColor;
+
+  a.with_arrow {
+    display: block;
+    font-size: 14px;
+    margin: 10px 0 0;
+  }
+
+  section {
+    margin-bottom: 15px;
+
+    &:after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 50%;
+      margin: 15px auto 0;
+      background: rgba(0, 0, 0, 0.1);
+      .box-shadow(0 1px 0 rgba(255, 255, 255, 0.2));
+    }
+
+    &.social {
+      .button {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+a {
+  color: @linkColor;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &.with_arrow {
+    &:after {
+      content: '';
+      //.sprite(0, 0);
+    }
+  }
+}
+
+
+.button {
+  .button-mixin();
+  font: 12px @standardFontFamily;
+  line-height: 28px;
+  height: 28px;
+  padding: 0 10px;
+}

@@ -1,9 +1,28 @@
 body {
   margin: 0;
-}
 
-header {
-  width: 100%;
-  height: @headerHeight;
-  margin: 0 auto;
+  > header {
+    width: 100%;
+    height: @headerHeight;
+    margin: 0 auto;
+  }
+
+  > .wrapper {
+    .clearfix();
+    width: @totalWidth;
+    margin: -20px auto 0;
+
+    > .notebook {
+      width: @notebookWidth;
+      float: left;
+    }
+
+    > aside.sidebar {
+      width: @sideBarWidth - @sideBarPaddingLeftWidth - @sideBarPaddingRightWidth;
+      float: left;
+      padding-top: 60px;
+      padding-left: @sideBarPaddingLeftWidth;
+      padding-right: @sideBarPaddingRightWidth;
+    }
+  }
 }
