@@ -57,6 +57,11 @@ app.configure(function () {
   app.set('view engine', 'jade');
   app.use(express.favicon());
   app.use(express.logger('dev'));
+  app.use(require('stylus').middleware({
+    debug: true
+  , force: true
+  , src: __dirname + '/public'
+  }));
   app.use(express['static'](__dirname + '/public'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
