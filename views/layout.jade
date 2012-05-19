@@ -2,11 +2,22 @@
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="stylesheet/less", type="text/css", href="/stylesheets/application.less")
+    script(src='/javascripts/less.js')
+
   body
     header
       if everyauth.loggedIn
         a(href='/profile')= everyauth.user.id
       else
         a(href='/auth/twitter') Login via Twitter
-    body!= body
+    aside
+      p El podcast en català d'informàtica i noves tecnologies fet per enginyers informàtics.
+      a Més sobre nosaltres
+      .button.gray.twitter Segueix-nos a 
+        strong Twitter
+      .button.gray.rss Subscriu-te al 
+        strong RSS
+      .button.gray.itunes Subscriu-te a 
+        strong iTunes
+    #content!= body
