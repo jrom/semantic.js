@@ -6,6 +6,22 @@ article {
     ul {
       font: @metaDataFont;
       li {
+        &.author:before {
+          .sprite(20px, 20px, 20px, 100px);
+        }
+        &.comments:before {
+          .sprite(20px, 20px, 0, 100px);
+        }
+        &.date:before {
+          .sprite(20px, 20px, 60px, 100px);
+        }
+        &.tags:before {
+          .sprite(20px, 20px, 40px, 100px);
+        }
+        &.meta:before {
+          content: '';
+          display: inline-block;
+        }
         display: inline;
       }
     }
