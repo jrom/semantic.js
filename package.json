@@ -6,11 +6,12 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "2.5.8"
-   , "jade": ">= 0.0.1"
-   , "mongodb": "*"
-   , "mongolia": "1.4.3"
-   , "everyauth": "*"
-   , "moment": "*"
+    "express": "2.5.8",
+    "jade": ">= 0.0.1",
+    "mongodb": "*",
+    "mongolia": "1.4.3",
+    "everyauth": "*",
+    "moment": "*",
+    "less": "~1.3.0"
   }
 }
