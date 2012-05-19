@@ -1,14 +1,17 @@
 //- FIXME This should obviously be a dynamic include such as
 //- `include item.type` but Jade doesn't allow this.
 article(class= item.type)
+  a.ribbon(href= item.permalink)
   header
     h2
       a(href= item.permalink)= item.title
     ul.metadata
-      li.meta.author Jordi
-      li.meta.comments 2 comments
+      li.meta.author <a href="#">Jordi</a>
+      li.meta.comments <a href="#">2 comments</a>
       li.meta.date
         date(datetime='2012-04-12') 2 days ago
-      li.meta.tags #SEO #socialmedia
+      li.meta.tags
+        a(href="#") #SEO
+        a(href="#") #socialmedia
 
   .body= item.body
