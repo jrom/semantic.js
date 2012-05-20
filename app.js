@@ -20,13 +20,13 @@ db.open(function (err, db) {
 function findOrCreateUser(provider) {
   return function (session, token, secret, provider_user) {
     var promise = this.Promise();
-    User.mongo('findOne', {provider: provider, provider_id: provider_user.id}, function (err, user) {
+    User.findOne({provider: provider, provider_id: provider_user.id}, function (err, user) {
       if (user) {
         user.id = user._id;
         promise.fulfill(user);
       }
       else {
-        User.mongo('insert', { provider: provider, provider_id: provider_user.id, provider_raw: provider_user }, function (err, user) {
+        User.insert({ provider: provider, provider_id: provider_user.id, provider_raw: provider_user }, function (err, user) {
           user = user[0]; // insert returns array of one element
           user.id = user._id;
           promise.fulfill(user);
@@ -38,7 +38,7 @@ function findOrCreateUser(provider) {
 }
 
 everyauth.everymodule.findUserById(function (_id, callback) {
-  User.mongo('findOne', {_id: mongo.ObjectID(_id)}, function (err, user) {
+  User.findOne({_id: mongo.ObjectID(_id)}, function (err, user) {
     callback(err, user);
   });
 });
@@ -91,14 +91,14 @@ function index(req, res, resource) {
     options.type = type;
   }
 
-  Item.mongo('findArray', options, {limit: 20, sort: {created_at: -1}}, function (err, results) {
+  Item.findArray(options, {limit: 20, sort: {created_at: -1}}, function (err, results) {
     res.render('index', {title: 'Hello', items: results });
   });
 }
 
 function show(req, res, permalink, next) {
   var options = { permalink: permalink};
-  Item.mongo('findOne', options, function (err, item) {
+  Item.findOne(options, function (err, item) {
     if (item) {
       res.render('show', {title: 'Some item', item: item });
     }
@@ -117,7 +117,7 @@ app.get(/^\/(podcast|posts|links)$/, function (req, res) {
 });
 
 app.get('/admin', function (req, res) {
-  Item.mongo('findArray', {}, {sort: {created_at: -1}}, function (err, results) {
+  Item.findArray({}, {sort: {created_at: -1}}, function (err, results) {
     res.render('admin/index', { items: results });
   });
 });
@@ -127,14 +127,14 @@ app.get('/admin/new', function (req, res) {
 });
 
 app.post('/admin/new', function (req, res) {
-  Item.mongo('insert', req.body, function (err, results) {
+  Item.insert(req.body, function (err, results) {
     res.redirect('/admin');
   });
 });
 
 app.get('/admin/edit/:id', function (req, res) {
   var _id = mongo.ObjectID(req.params.id);
-  Item.mongo('findOne', {_id: _id}, function (err, item) {
+  Item.findOne({_id: _id}, function (err, item) {
     if (item) {
       res.render('admin/edit', { item: item });
     }
@@ -146,14 +146,14 @@ app.get('/admin/edit/:id', function (req, res) {
 
 app.post('/admin/update/:id', function (req, res) {
   var _id = mongo.ObjectID(req.params.id);
-  Item.mongo('update', {_id: _id}, { $set: req.body }, {safe: true}, function (err) {
+  Item.update({_id: _id}, { $set: req.body }, {safe: true}, function (err) {
     res.redirect('/admin');
   });
 });
 
 app.post('/admin/destroy/:id', function (req, res) {
   var _id = mongo.ObjectID(req.params.id);
-  Item.mongo('remove', {_id: _id}, function (err, results) {
+  Item.remove({_id: _id}, function (err, results) {
     res.redirect('/admin');
   });
 });
