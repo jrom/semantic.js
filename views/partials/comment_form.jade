@@ -1,0 +1,5 @@
+form.form-horizontal(action= '/comment', method= 'post')
+      label(for='input-body') Comentari
+      textarea(name='body', id='input-body', class='input-xlarge', type='text', rows=10)
+      input(type='hidden', name='item_id', value=item._id)
+      button(type='submit') Enviar

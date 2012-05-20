@@ -127,6 +127,21 @@ app.get(/^\/(podcast|posts|links)$/, function (req, res) {
   index(req, res, req.params[0]);
 });
 
+app.post('/comment', function (req, res) {
+  var _id
+    , comment = {};
+
+  _id = mongo.ObjectID(req.body.item_id);
+  comment.body = req.body.body;
+  comment.created_at = Date.now();
+  comment.author = { name: 'Jordi', avatar: 'avatar', url: 'url' }; // FIXME
+
+  Item.update({_id: _id}, { $push: { comments: comment } }, {safe: true}, function (err) {
+    res.redirect('/');
+  });
+});
+
+// ADMIN
 app.get('/admin', authorize, function (req, res) {
   Item.findArray({}, {sort: {created_at: -1}}, function (err, results) {
     res.render('admin/index', { items: results });
