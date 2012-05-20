@@ -1,4 +1,6 @@
 .comment
-  p= comment.author
+  p= comment.author.name
+  p= comment.author.url
+  img(src=comment.author.avatar)
   p= moment(comment.created_at).format('DD/MM/YY')
-  p= comment.body
+  p!= markdown.parse(comment.body)
