@@ -34,5 +34,5 @@ meta desc: intro post
 + New item
 - Adapt form to post type
 - New item form validations
-- Edit item
++ Edit item
 + Delete item
