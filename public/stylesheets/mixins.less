@@ -640,14 +640,14 @@
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
   &:hover {
     cursor: pointer;
-    #gradient .vertical-three-colors(lighten(@bg_color, 2%), lighten(@bg_color, 2%), 60%, darken(@bg_color, 5%));
+    #gradient .vertical-three-colors(lighten(@bg_color, 3%), lighten(@bg_color, 2.5%), 60%, darken(@bg_color, 4%));
     border: 1px solid darken(@bg_color, 25%);
     border-bottom-color: darken(@bg_color, 30%);
   }
   &:active {
     #gradient .vertical(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.0));
     border: 1px solid darken(@bg_color, 25%);
-    border-bottom-color: darken(@bg_color, 30%);
+    border-bottom-top: darken(@bg_color, 40%);
     .box-shadow(~'inset 0 2px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.5)');
     color: darken(@text_color, 20%);
     text-shadow: none;
