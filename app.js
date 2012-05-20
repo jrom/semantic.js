@@ -146,8 +146,9 @@ app.get('/admin/edit/:id', function (req, res) {
 
 app.post('/admin/update/:id', function (req, res) {
   var _id = mongo.ObjectID(req.params.id);
-  console.log('TODO! Update item ' + _id);
-  res.redirect('/admin');
+  Item.mongo('update', {_id: _id}, { $set: req.body }, {safe: true}, function (err) {
+    res.redirect('/admin');
+  });
 });
 
 app.post('/admin/destroy/:id', function (req, res) {
