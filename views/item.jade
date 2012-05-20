@@ -14,4 +14,4 @@ article(class= item.type)
         a(href="#") #SEO
         a(href="#") #socialmedia
 
-  .body= item.body
+  .body!= markdown.parse(item.body)

@@ -1,5 +1,6 @@
 var express = require('express')
   , moment = require('moment')
+  , markdown = require('github-flavored-markdown')
   , routes = require('./routes')
   , everyauth = require('everyauth')
   , mongo = require('mongodb')
@@ -72,6 +73,7 @@ app.configure('development', function () {
 
 app.helpers({
   moment: moment
+, markdown: markdown
 });
 
 everyauth.helpExpress(app);

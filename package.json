@@ -12,6 +12,7 @@
     "mongolia": "1.5.0",
     "everyauth": "*",
     "moment": "*",
-    "less": "~1.3.0"
+    "less": "~1.3.0",
+    "github-flavored-markdown": "~1.0.1"
   }
 }
