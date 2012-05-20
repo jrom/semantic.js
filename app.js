@@ -18,6 +18,15 @@ db.open(function (err, db) {
   console.log('connected to mongoDB');
 });
 
+function authorize(req, res, next) {
+  if (req.user && req.user.admin) {
+    next();
+  }
+  else {
+    res.redirect('/');
+  }
+}
+
 function findOrCreateUser(provider) {
   return function (session, token, secret, provider_user) {
     var promise = this.Promise();
@@ -118,23 +127,23 @@ app.get(/^\/(podcast|posts|links)$/, function (req, res) {
   index(req, res, req.params[0]);
 });
 
-app.get('/admin', function (req, res) {
+app.get('/admin', authorize, function (req, res) {
   Item.findArray({}, {sort: {created_at: -1}}, function (err, results) {
     res.render('admin/index', { items: results });
   });
 });
 
-app.get('/admin/new', function (req, res) {
+app.get('/admin/new', authorize, function (req, res) {
   res.render('admin/new');
 });
 
-app.post('/admin/new', function (req, res) {
+app.post('/admin/new', authorize, function (req, res) {
   Item.insert(req.body, function (err, results) {
     res.redirect('/admin');
   });
 });
 
-app.get('/admin/edit/:id', function (req, res) {
+app.get('/admin/edit/:id', authorize, function (req, res) {
   var _id = mongo.ObjectID(req.params.id);
   Item.findOne({_id: _id}, function (err, item) {
     if (item) {
@@ -146,14 +155,14 @@ app.get('/admin/edit/:id', function (req, res) {
   });
 });
 
-app.post('/admin/update/:id', function (req, res) {
+app.post('/admin/update/:id', authorize, function (req, res) {
   var _id = mongo.ObjectID(req.params.id);
   Item.update({_id: _id}, { $set: req.body }, {safe: true}, function (err) {
     res.redirect('/admin');
   });
 });
 
-app.post('/admin/destroy/:id', function (req, res) {
+app.post('/admin/destroy/:id', authorize, function (req, res) {
   var _id = mongo.ObjectID(req.params.id);
   Item.remove({_id: _id}, function (err, results) {
     res.redirect('/admin');
