@@ -134,7 +134,7 @@ app.post('/comment', function (req, res) {
   _id = mongo.ObjectID(req.body.item_id);
   comment.body = req.body.body;
   comment.created_at = Date.now();
-  comment.author = { name: 'Jordi', avatar: 'avatar', url: 'url' }; // FIXME
+  comment.author = { name: 'Jordi', avatar: 'https://twimg0-a.akamaihd.net/profile_images/1147320597/foto.JPG', url: 'url' }; // FIXME
 
   Item.update({_id: _id}, { $push: { comments: comment } }, {safe: true}, function (err) {
     res.redirect('/');
