@@ -5,12 +5,32 @@ article {
   padding-left: @columnWidth + @paperPaddingLeftWidth;
   padding-bottom: 40px;
   margin-bottom: 20px;
+
+  // Ribbon
   .ribbon {
     .sprite(100px, 60px, 0, 0);
     position: absolute;
     left: -9px;
     top: -10px;
+    &:after {
+      content: '';
+      position: relative;
+      left: 18px;
+      top: 5px;
+    }
   }
+
+  &.episode .ribbon:after {
+    .sprite(40px, 40px, 0, 60px);
+  }
+  &.link .ribbon:after {
+    .sprite(40px, 40px, 80px, 60px);
+  }
+  &.post .ribbon:after {
+    .sprite(40px, 40px, 40px, 60px);
+  }
+
+  // Header
   header {
     h2 {
       padding-left: 20px;
@@ -21,6 +41,8 @@ article {
         color: darken(@linkColor, 10%);
       }
     }
+
+    // Metadata
     ul.metadata {
       font: @metaDataFont;
       background: transparent url('/images/hr.png') no-repeat top left;
@@ -63,10 +85,81 @@ article {
       }
     }
   }
+
+  // Body
   .body {
     background: transparent url('/images/hr.png') no-repeat top left;
     margin-left: -@columnWidth - @paperPaddingLeftWidth;
     padding-left: @columnWidth + @paperPaddingLeftWidth;
-    padding-top: 40px;
+    padding-top: 30px;
+    line-height: 2em;
+    p {
+      text-indent: 20px;
+      margin-bottom: 20px;
+    }
+    a {
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    h2, h3, h4, h5 {
+      font: @titleFont;
+      color: darken(@textColor, 10%);
+      line-height: 2em;
+    }
+    h2 {
+      font-size: 24px;
+    }
+    h3 {
+      font-size: 20px;
+    }
+    h4, h5 {
+      font-size: 18px;
+    }
+    ol, ul {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+    ol {
+      list-style: decimal;
+    }
+    ul {
+      list-style: disc;
+    }
+    code {
+      font-family: @monoFontFamily;
+      font-size: 80%;
+    }
+    pre {
+      background: #666;
+      .border-radius(3px);
+      color: #eee;
+      padding: 10px 5px;
+    }
+    blockquote {
+      margin-left: 40px;
+      margin-bottom: 20px;
+      margin-right: 30px;
+      font-family: @titleFontFamily;
+      position: relative;
+      p {
+        text-indent: 0;
+      }
+      &:before, &:after {
+        content: '“';
+        font-size: 400%;
+        top: 10px;
+        position: absolute;
+        color: lighten(@textColor, 40%);
+      }
+      &:before {
+        left: -30px;
+      }
+      &:after {
+        content: '”';
+        right: -30px;
+      }
+    }
   }
 }
