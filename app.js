@@ -111,7 +111,7 @@ function show(req, res, permalink, next) {
   var options = { permalink: permalink};
   Item.findOne(options, function (err, item) {
     if (item) {
-      res.render('show', {title: 'Some item', item: item });
+      res.render('show', {title: item.title, item: item });
     }
     else {
       next();
