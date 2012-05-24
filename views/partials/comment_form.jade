@@ -1,4 +1,4 @@
 form.comment-form(action= '/comment', method= 'post')
-  textarea(name='body', id='input-body', placeholder='Digues la teva! Escriu aquí el teu comentari...')
+  textarea.js-autoresize(name='body', id='input-body', placeholder='Digues la teva! Escriu aquí el teu comentari...')
   input(type='hidden', name='item_id', value=item._id)
   button.button.white.send(type='submit') Enviar comenatri
