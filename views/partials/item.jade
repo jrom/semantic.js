@@ -4,7 +4,8 @@ article(class= item.type)
     h2
       a(href= item.permalink)= item.title
     ul.metadata
-      li.meta.author= item.author
+      if item.author
+          li.meta.author= item.author
       li.meta.comments
         a(href= item.permalink)
           = (item.comments && item.comments.length) || 0
@@ -14,8 +15,8 @@ article(class= item.type)
             |  comentaris
       li.meta.date
         date(datetime=moment(item.created_at).format('DD-MM-YY'))= moment(item.created_at).fromNow()
-      li.meta.tags
-        if item.tags
+      if item.tags
+        li.meta.tags
           each tag in item.tags.split(' ')
             span.tag= '#' + tag
             //- Hack to separate tags by spaces
