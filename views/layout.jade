@@ -7,10 +7,14 @@ html
 
   body
     header.header
-      if user
-        = user.name
-      else
-        a(href='/auth/twitter') Log in via Twitter
+      .header-wrapper
+        a(href="/")
+          h1.logo Semàntic
+        .user
+          if user
+            = user.name
+          else
+            a.login.button(href='/auth/twitter') Log in via Twitter
     .wrapper
       .notebook!= body
       aside.sidebar

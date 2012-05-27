@@ -2,4 +2,20 @@ header.header {
   border-bottom: 1px solid rgba(0,0,0, 0.07);
   background: rgba(0,0,0,0.02);
   .box-shadow(0 1px 0 rgba(255, 255, 255, 0.3));
+
+  .logo {
+    .hide-text();
+    .sprite(11*20px, 2*20px, 7*20px, 0);
+    display: inline-block;
+    margin: 25px 10px;
+  }
+  .user {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    top: 35px;
+    .login.button {
+      display: block;
+    }
+  }
 }
