@@ -7,6 +7,10 @@ html
 
   body
     header.header
+      if user
+        = user.name
+      else
+        a(href='/auth/twitter') Log in via Twitter
     .wrapper
       .notebook!= body
       aside.sidebar
