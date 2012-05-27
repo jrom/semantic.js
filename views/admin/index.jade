@@ -11,7 +11,9 @@ table.table.table-striped
   tbody
     each item in items
       tr
-        td= moment(item.created_at).format('DD/MM/YY')
+        td
+          a(href= '/admin/edit/' + item._id)
+            = moment(item.created_at).format('DD/MM/YY')
         td
           if item.type === 'episode'
             i(class='icon-headphones')
