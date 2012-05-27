@@ -4,6 +4,7 @@ var express = require('express')
   , routes = require('./routes')
   , everyauth = require('everyauth')
   , mongo = require('mongodb')
+  , mongoStore = require('connect-mongodb')
   , Server = mongo.Server
   , Db = mongo.Db;
 
@@ -64,7 +65,10 @@ everyauth
 
 app.configure(function () {
   app.use(express.cookieParser(process.env.COOKIE_SECRET || 'sekret'));
-  app.use(express.session({ secret: (process.env.SESSION_SECRET || 'sekret')}));
+  app.use(express.session({
+    store: new mongoStore({db: db})
+  , secret: (process.env.SESSION_SECRET || 'sekret')
+  }));
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
