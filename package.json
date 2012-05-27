@@ -13,6 +13,7 @@
     "everyauth": "*",
     "moment": "*",
     "less": "~1.3.0",
-    "github-flavored-markdown": "~1.0.1"
+    "github-flavored-markdown": "~1.0.1",
+    "connect-mongodb": "~1.1.3"
   }
 }
