@@ -1,0 +1,36 @@
+!!! xml
+rss(version='2.0', 'xmlns:itunes'="http://www.itunes.com/dtds/podcast-1.0.dtd", 'xmlns:media'='http://search.yahoo.com/mrss/')
+  channel
+    title Sem&#224;ntic
+    link="http://semantic.cat"
+    description Podcast d'inform&#224;tica en catal&#224;
+    language ca
+    pubDate 24 Sep 2011
+    lastBuildDate 24 Sep 2011
+    itunes:author Sem&#224;ntic
+    itunes:subtitle Podcast d'inform&#224;tica en catal&#224;
+    itunes:keywords inform&#224;tica, podcast, catal&#224;, enginyeria en inform&#224;tica, programaci&#243;, internet, tecnolog&#237;a
+    itunes:summary Podcast d'inform&#224;tica en catal&#224;
+    itunes:explicit clean
+    itunes:image(href="http://semantic.cat/images/semanticlogo.jpg")
+    itunes:owner
+      itunes:name Sem&#224;ntic
+      itunes:email podcast@semantic.cat
+        itunes:block no
+        itunes:category(text="Technology")
+          itunes:category(text="Tech News")
+        itunes:category(text="Technology")
+          itunes:category(text="Software How-To")
+        each item in items
+          item
+            title= item.title
+            description= item.body
+            pubDate= moment(item.created_at).format('D MMM YY') // 24 Sep 2011
+            enclosure(type="audio/mpeg", length="27411545", url=item.url)= // TODO bytesssssss
+            link= 'http://semantic.cat/' + item.permalink
+            guid= 'http://semantic.cat/' + item.permalink
+            itunes:author Sem&#224;ntic
+            itunes:subtitle= item.body // TODO short
+            itunes:summary= item.body
+            itunes:explicit no
+            itunes:duration= 3423 // TODO lol

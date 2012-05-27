@@ -129,6 +129,12 @@ app.get('/', function (req, res) {
   index(req, res);
 });
 
+app.get('/feed', function (req, res) {
+  Item.findArray({type: 'episode'}, {sort: {created_at: -1}}, function (err, results) {
+    res.render('feed', {layout: false, items: results});
+  });
+});
+
 app.get(/^\/(podcast|posts|links)$/, function (req, res) {
   index(req, res, req.params[0]);
 });
