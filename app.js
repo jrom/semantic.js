@@ -29,14 +29,16 @@ function authorize(req, res, next) {
 
 function findOrCreateUser(provider) {
   return function (session, token, secret, provider_user) {
-    var promise = this.Promise();
+    var promise = this.Promise()
+      , parsed_user;
     User.findOne({provider: provider, provider_id: provider_user.id}, function (err, user) {
       if (user) {
         user.id = user._id;
         promise.fulfill(user);
       }
       else {
-        User.insert({ provider: provider, provider_id: provider_user.id, provider_raw: provider_user }, function (err, user) {
+        parsed_user = User.from_provider(provider, provider_user.id, provider_user);
+        User.insert(parsed_user, function (err, user) {
           user = user[0]; // insert returns array of one element
           user.id = user._id;
           promise.fulfill(user);
@@ -127,17 +129,25 @@ app.get(/^\/(podcast|posts|links)$/, function (req, res) {
   index(req, res, req.params[0]);
 });
 
-app.post('/comment', function (req, res) {
+app.post('/comment', function (req, res, next) {
   var _id
     , comment = {};
 
   _id = mongo.ObjectID(req.body.item_id);
-  comment.body = req.body.body;
-  comment.created_at = Date.now();
-  comment.author = { name: 'Jordi', avatar: 'https://twimg0-a.akamaihd.net/profile_images/1147320597/foto.JPG', url: 'url' }; // FIXME
 
-  Item.update({_id: _id}, { $push: { comments: comment } }, {safe: true}, function (err) {
-    res.redirect('/');
+  Item.findOne({_id: _id}, function (err, item) {
+    if (item) {
+      comment.body = req.body.body;
+      comment.created_at = Date.now();
+      comment.author = User.simple_user(req.user);
+
+      Item.update({_id: _id}, { $push: { comments: comment } }, {safe: true}, function (err) {
+        res.redirect('/' + item.permalink);
+      });
+    }
+    else {
+      next();
+    }
   });
 });
 
