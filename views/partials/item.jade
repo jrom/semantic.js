@@ -15,7 +15,10 @@ article(class= item.type)
       li.meta.date
         date(datetime=moment(item.created_at).format('DD-MM-YY'))= moment(item.created_at).fromNow()
       li.meta.tags
-        a(href="#") #SEO
-        a(href="#") #socialmedia
+        if item.tags
+          each tag in item.tags.split(' ')
+            span.tag= '#' + tag
+            //- Hack to separate tags by spaces
+            | 
 
   .body!= markdown.parse(item.body)
