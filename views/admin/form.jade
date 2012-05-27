@@ -17,6 +17,10 @@ form.form-horizontal(action= url, method= 'post')
       .controls
         input(name='title', id='input-title', class='input-xlarge', type='text', value=item.title)
     .control-group
+      label.control-label(for='input-author') Author
+      .controls
+        input(name='author', id='input-author', class='input-xlarge', type='text', value=item.author)
+    .control-group
       label.control-label(for='input-permalink') Permalink
       .controls
         input(name='permalink', id='input-permalink', class='input-xlarge', type='text', value=item.permalink)
