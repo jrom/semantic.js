@@ -11,7 +11,7 @@ var posts = [
     title: "First semantic episode",
     permalink: "first-semantic-episode",
     excerpt: "Lorem ipsum",
-    body: "Lorem ipsum",
+    body: "Lorem ipsum BLA BLA",
     number: 1,
     created_at: new Date("2012-04-20")
   }
@@ -19,7 +19,7 @@ var posts = [
     title: "Second semantic episode",
     permalink: "second-semantic-episode",
     excerpt: "Something else",
-    body: "Something else",
+    body: "Something else BLA BLA",
     number: 2,
     created_at: new Date("2012-04-27")
   }
@@ -27,14 +27,14 @@ var posts = [
     title: "Semantic relaunch",
     permalink: "semantic-relaunch",
     excerpt: "This is a post explaining the relaunch",
-    body: "This is a post explaining the relaunch",
+    body: "This is a post explaining the relaunch BLA BLA BLA",
     created_at: new Date("2012-04-19")
   }
 , { type: "link",
     title: "Camaloon offer",
     permalink: "camaloon-offer",
     excerpt: "Let's explain something about this link",
-    body: "Let's explain something about this link",
+    body: "Let's explain something about this link BLA BLA BLA BLA",
     url: "http://camaloon.com/some/landing/page",
     created_at: new Date("2012-04-24")
   }
