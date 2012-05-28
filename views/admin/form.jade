@@ -37,6 +37,10 @@ form.form-horizontal(action= url, method= 'post')
       .controls
         input(name='number', id='input-number', class='input-mini', type='text', value=item.number)
     .control-group
+      label.control-label(for='input-excerpt') Exceprt
+      .controls
+        textarea(name='excerpt', id='input-excerpt', class='input-xlarge', type='text', rows=10)= item.excerpt
+    .control-group
       label.control-label(for='input-body') Body
       .controls
         textarea(name='body', id='input-body', class='input-xlarge', type='text', rows=10)= item.body

@@ -1,0 +1,22 @@
+a.ribbon(href= item.permalink)
+header
+  h2
+    a(href= item.permalink)= item.title
+  ul.metadata
+    if item.author
+        li.meta.author= item.author
+    li.meta.comments
+      a(href= item.permalink + '#comments')
+        = (item.comments && item.comments.length) || 0
+        if (item.comments && item.comments.length === 1)
+          |  comentari
+        else
+          |  comentaris
+    li.meta.date
+      date(datetime=moment(item.created_at).format('DD-MM-YY'))= moment(item.created_at).fromNow()
+    if item.tags
+      li.meta.tags
+        each tag in item.tags.split(' ')
+          span.tag= '#' + tag
+          //- Hack to separate tags by spaces
+          | 
