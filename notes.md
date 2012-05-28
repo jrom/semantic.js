@@ -36,3 +36,16 @@ meta desc: intro post
 - New item form validations
 + Edit item
 + Delete item
+
+
+
+FAVICON
+share fb, tw, g+
+login via facebook
+membres
+episode #
+links
+cerca
+filtrar posts
+reproductor
+draft
