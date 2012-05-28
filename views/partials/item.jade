@@ -7,7 +7,7 @@ article(class= item.type)
       if item.author
           li.meta.author= item.author
       li.meta.comments
-        a(href= item.permalink)
+        a(href= item.permalink + '#comments')
           = (item.comments && item.comments.length) || 0
           if (item.comments && item.comments.length === 1)
             |  comentari
