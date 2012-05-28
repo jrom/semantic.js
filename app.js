@@ -147,8 +147,8 @@ app.post('/comment', function (req, res, next) {
 
   Item.findOne({_id: _id}, function (err, item) {
     if (item) {
-      if ((typeof comment.body === 'undefined') || (typeof req.user === 'undefined')) {
-        console.log('ERROR validating comment: ', comment, ' or user: ', req.user);
+      if ((typeof req.body.body === 'undefined') || req.body.body.length === 0 || (typeof req.user === 'undefined')) {
+        console.log('ERROR validating comment: ', req.body.body, ' or user: ', req.user);
         return res.redirect('/' + item.permalink);
       }
 
