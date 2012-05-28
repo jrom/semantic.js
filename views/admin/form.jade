@@ -1,6 +1,6 @@
-- var is_new = (typeof item === 'undefined');
+- var persisted = (typeof item !== 'undefined') && item._id;
 - var item = item || {};
-- var url = is_new ? '/admin/new' : '/admin/update/' + item._id;
+- var url = persisted ? '/admin/update/' + item._id : '/admin/new';
 form.form-horizontal(action= url, method= 'post')
   fieldset
     .control-group
@@ -37,7 +37,7 @@ form.form-horizontal(action= url, method= 'post')
       .controls
         input(name='number', id='input-number', class='input-mini', type='text', value=item.number)
     .control-group
-      label.control-label(for='input-excerpt') Exceprt
+      label.control-label(for='input-excerpt') Excerpt
       .controls
         textarea(name='excerpt', id='input-excerpt', class='input-xlarge', type='text', rows=10)= item.excerpt
     .control-group

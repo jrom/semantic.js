@@ -173,8 +173,14 @@ app.get('/admin/new', authorize, function (req, res) {
 });
 
 app.post('/admin/new', authorize, function (req, res) {
-  Item.insert(req.body, function (err, results) {
-    res.redirect('/admin');
+  Item.validateAndInsert(req.body, function (err, validator) {
+    if (validator.hasErrors()) {
+      console.log('Error validating new item!', validator.errors);
+      res.render('admin/new', { item: validator.updated_document });
+    }
+    else {
+      res.redirect('/admin');
+    }
   });
 });
 
