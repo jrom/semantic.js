@@ -8,15 +8,34 @@ var express = require('express')
   , Server = mongo.Server
   , Db = mongo.Db;
 
+var db_options = {};
+
+if (process.env.MONGOHQ_URL) {
+  var db_uri_split = process.env.MONGOHQ_URL.match(/^mongodb:\/\/(.*):(.*)@(.*):(.*)\/(.*)$/);
+  db_options.user = db_uri_split[1];
+  db_options.password = db_uri_split[2];
+  db_options.host = db_uri_split[3];
+  db_options.port = db_uri_split[4];
+} else {
+  db_options.host = 'localhost';
+  db_options.port = 27017;
+}
+
 var app = express.createServer()
-  , server = new Server('localhost', 27017, {auto_reconnect: true})
+  , server = new Server(db_options.host, db_options.port, {auto_reconnect: true})
   , db = new Db('semantic', server);
 
 var Item = require('./models/item.js')(db)
   , User = require('./models/user.js')(db);
 
 db.open(function (err, db) {
-  console.log('connected to mongoDB');
+  db.authenticate(db_options.user, db_options.password, function (err) {
+    if (err && db_options.user) {
+      console.log('error authenticating');
+    } else {
+      console.log('connected to mongoDB');
+    }
+  });
 });
 
 function authorize(req, res, next) {
