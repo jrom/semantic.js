@@ -15,7 +15,7 @@ if (process.env.MONGOHQ_URL) {
   db_options.user = db_uri_split[1];
   db_options.password = db_uri_split[2];
   db_options.host = db_uri_split[3];
-  db_options.port = db_uri_split[4];
+  db_options.port = +db_uri_split[4];
 } else {
   db_options.host = 'localhost';
   db_options.port = 27017;
