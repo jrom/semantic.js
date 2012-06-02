@@ -10,13 +10,15 @@ if (process.env.MONGOHQ_URL) {
   db_options.password = db_uri_split[2];
   db_options.host = db_uri_split[3];
   db_options.port = +db_uri_split[4];
+  db_options.database = db_uri_split[5];
 } else {
   db_options.host = 'localhost';
   db_options.port = 27017;
+  db_options.database = 'semantic';
 }
 
 var server = new Server(db_options.host, db_options.port, {auto_reconnect: true})
-  , db = new Db('semantic', server)
+  , db = new Db(db_options.database, server);
   , Item = require('./models/item.js')(db);
 
 var posts = [
