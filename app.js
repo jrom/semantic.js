@@ -242,4 +242,4 @@ app.get('/:permalink', function (req, res, next) {
 
 app.listen(process.env.PORT || 3000);
 
-console.log("Express server listening on port 3000");
+console.log("Express server listening on port " + process.env.PORT || 3000);
