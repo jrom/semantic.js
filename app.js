@@ -156,6 +156,14 @@ app.get('/feed', function (req, res) {
   });
 });
 
+app.get('/membres', function (req, res) {
+  res.render('team', {title: "Equip de Semàntic"});
+});
+
+app.get('/que-es-semantic', function (req, res) {
+  res.render('about', {title: "Què és Semàntic"});
+});
+
 app.get(/^\/(podcast|posts|links)$/, function (req, res) {
   index(req, res, req.params[0]);
 });
