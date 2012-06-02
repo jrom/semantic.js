@@ -16,21 +16,21 @@ rss(version='2.0', 'xmlns:itunes'="http://www.itunes.com/dtds/podcast-1.0.dtd", 
     itunes:owner
       itunes:name Sem&#224;ntic
       itunes:email podcast@semantic.cat
-        itunes:block no
-        itunes:category(text="Technology")
-          itunes:category(text="Tech News")
-        itunes:category(text="Technology")
-          itunes:category(text="Software How-To")
-        each item in items
-          item
-            title= item.title
-            description= item.body
-            pubDate= moment(item.created_at).format('D MMM YY') // 24 Sep 2011
-            enclosure(type="audio/mpeg", length="27411545", url=item.url)= // TODO bytesssssss
-            link= 'http://semantic.cat/' + item.permalink
-            guid= 'http://semantic.cat/' + item.permalink
-            itunes:author Sem&#224;ntic
-            itunes:subtitle= item.body // TODO short
-            itunes:summary= item.body
-            itunes:explicit no
-            itunes:duration= 3423 // TODO lol
+    itunes:block no
+    itunes:category(text="Technology")
+      itunes:category(text="Tech News")
+    itunes:category(text="Technology")
+      itunes:category(text="Software How-To")
+    each item in items
+      item
+        title= "Capítol " + item.number  + ": " + item.title
+        description= markdown.parse(item.body.split('---')[0])
+        pubDate= moment(item.created_at).format('D MMM YYYY') // 24 Sep 2011
+        enclosure(type="audio/mpeg", length=item.asset_file_size, url=item.url)
+        link= 'http://semantic.cat/' + item.permalink
+        guid= 'http://semantic.cat/' + item.permalink
+        itunes:author Sem&#224;ntic
+        itunes:subtitle= markdown.parse(item.excerpt).slice(0,150)
+        itunes:summary= markdown.parse(item.body.split('---')[0])
+        itunes:explicit no
+        itunes:duration= item.duration
