@@ -2,7 +2,20 @@ var mongo = require('mongodb')
   , Server = mongo.Server
   , Db = mongo.Db;
 
-var server = new Server('localhost', 27017, {auto_reconnect: true})
+var db_options = {};
+
+if (process.env.MONGOHQ_URL) {
+  var db_uri_split = process.env.MONGOHQ_URL.match(/^mongodb:\/\/(.*):(.*)@(.*):(.*)\/(.*)$/);
+  db_options.user = db_uri_split[1];
+  db_options.password = db_uri_split[2];
+  db_options.host = db_uri_split[3];
+  db_options.port = +db_uri_split[4];
+} else {
+  db_options.host = 'localhost';
+  db_options.port = 27017;
+}
+
+var server = new Server(db_options.host, db_options.port, {auto_reconnect: true})
   , db = new Db('semantic', server)
   , Item = require('./models/item.js')(db);
 
