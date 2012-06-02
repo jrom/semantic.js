@@ -156,6 +156,10 @@ app.get('/feed', function (req, res) {
   });
 });
 
+app.get(/^\/(jordi|bernat|masumi)$/, function (req, res) {
+  res.redirect('/membres', 301);
+});
+
 app.get('/membres', function (req, res) {
   res.render('team', {title: "Equip de Semàntic"});
 });
