@@ -26,7 +26,7 @@ rss(version='2.0', 'xmlns:itunes'="http://www.itunes.com/dtds/podcast-1.0.dtd", 
         title= "Capítol " + item.number  + ": " + item.title
         description= markdown.parse(item.body.split('---')[0])
         pubDate= moment(item.created_at).format('D MMM YYYY') // 24 Sep 2011
-        enclosure(type="audio/mpeg", length=item.asset_file_size, url=item.url)
+        enclosure(type="audio/mpeg", length=item.size, url=item.url)
         link= 'http://semantic.cat/' + item.permalink
         guid= 'http://semantic.cat/' + item.permalink
         itunes:author Sem&#224;ntic
