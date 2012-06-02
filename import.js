@@ -24,22 +24,31 @@ var server = new Server(db_options.host, db_options.port, {auto_reconnect: true}
 var episodes = JSON.parse(require('fs').readFileSync('episodes.json'));
 
 db.open(function (err, db) {
-  Item.remove();
-  episodes.forEach(function (post) {
-    post = post.episode;
-    post.legacy = true;
-    post.body = post.description + "\n\n" + post.notes;
-    post.excerpt = post.description;
-    post.type = 'episode';
-    console.log(post);
-    Item.validateAndInsert(post, function (err, validator) {
-      if (validator.hasErrors()) {
-        console.log('OMG ERRORS', validator.errors);
-      }
-      else {
-        console.log('created ', post.title);
-      }
-    });
+  console.log('authenticating...');
+  console.log(db_options);
+  db.authenticate(db_options.user, db_options.password, function (err) {
+    if (err && db_options.user) {
+      console.log('error authenticating');
+    } else {
+      console.log('connected to mongoDB');
+      Item.remove();
+      episodes.forEach(function (post) {
+        post = post.episode;
+        post.legacy = true;
+        post.body = post.description + "\n\n" + post.notes;
+        post.excerpt = post.description;
+        post.type = 'episode';
+        console.log(post);
+        Item.validateAndInsert(post, function (err, validator) {
+          if (validator.hasErrors()) {
+            console.log('OMG ERRORS', validator.errors);
+          }
+          else {
+            console.log('created ', post.title);
+          }
+        });
+      });
+    }
+    db.close();
   });
-  db.close();
 });
