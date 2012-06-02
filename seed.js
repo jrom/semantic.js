@@ -18,7 +18,7 @@ if (process.env.MONGOHQ_URL) {
 }
 
 var server = new Server(db_options.host, db_options.port, {auto_reconnect: true})
-  , db = new Db(db_options.database, server);
+  , db = new Db(db_options.database, server)
   , Item = require('./models/item.js')(db);
 
 var posts = [
