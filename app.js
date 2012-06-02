@@ -236,6 +236,10 @@ app.post('/admin/destroy/:id', authorize, function (req, res) {
   });
 });
 
+app.get('/episodes/:number-:permalink', function (req, res, next) {
+  res.redirect('/' + req.params.permalink, 301);
+});
+
 app.get('/:permalink', function (req, res, next) {
   show(req, res, req.params.permalink, next);
 });
