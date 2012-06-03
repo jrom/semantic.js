@@ -137,7 +137,7 @@ function index(req, res, resource, page) {
   Item.findArray(options, {skip: skip, limit: limit, sort: {created_at: -1}}, function (err, results) {
     Item.count(options, function (err, count) {
       total_pages = Math.ceil(count / limit);
-      res.render('index', {title: 'Hello', items: results, page: page, total_pages: total_pages });
+      res.render('index', {title: 'Semàntic Podcast', items: results, page: page, total_pages: total_pages });
     });
   });
 }
@@ -183,11 +183,11 @@ app.get(/^\/(jordi|bernat|masumi)$/, function (req, res) {
 });
 
 app.get('/membres', function (req, res) {
-  res.render('team', {title: "Equip de Semàntic"});
+  res.render('team', {title: 'Equip de Semàntic'});
 });
 
 app.get('/que-es-semantic', function (req, res) {
-  res.render('about', {title: "Què és Semàntic"});
+  res.render('about', {title: 'Què és Semàntic'});
 });
 
 app.get(/^\/(podcast|posts|links)$/, function (req, res) {
