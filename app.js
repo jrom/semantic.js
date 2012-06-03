@@ -82,7 +82,7 @@ everyauth
   .consumerKey(process.env.TWITTER_KEY)
   .consumerSecret(process.env.TWITTER_SECRET)
   .findOrCreateUser(findOrCreateUser('twitter'))
-  .redirectPath('/');
+  .redirectPath('/auth/callback');
 
 app.configure(function () {
   app.use(express.cookieParser(process.env.COOKIE_SECRET || 'sekret'));
@@ -148,6 +148,15 @@ function show(req, res, permalink, next) {
 
 app.get('/', function (req, res) {
   index(req, res);
+});
+
+app.get('/auth/callback', function (req, res) {
+  res.redirect(req.session.redirectTo || '/');
+});
+
+app.get('/login/:provider', function (req, res) {
+  req.session.redirectTo = req.header('Referrer', app.route);
+  res.redirect('/auth/' + req.params.provider);
 });
 
 app.get('/feed', function (req, res) {
