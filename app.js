@@ -114,9 +114,14 @@ app.helpers({
 
 everyauth.helpExpress(app);
 
-function index(req, res, resource) {
+function index(req, res, resource, page) {
   var type
-    , options = {};
+    , options = {}
+    , limit, skip, total_pages;
+
+  page = page || 0;
+  limit = 1;
+  skip = page * limit;
 
   if (resource === 'podcast') {
     type = 'episode';
@@ -129,8 +134,11 @@ function index(req, res, resource) {
     options.type = type;
   }
 
-  Item.findArray(options, {limit: 20, sort: {created_at: -1}}, function (err, results) {
-    res.render('index', {title: 'Hello', items: results });
+  Item.findArray(options, {skip: skip, limit: limit, sort: {created_at: -1}}, function (err, results) {
+    Item.count(options, function (err, count) {
+      total_pages = Math.ceil(count / limit);
+      res.render('index', {title: 'Hello', items: results, page: page, total_pages: total_pages });
+    });
   });
 }
 
@@ -148,6 +156,10 @@ function show(req, res, permalink, next) {
 
 app.get('/', function (req, res) {
   index(req, res);
+});
+
+app.get('/page:page', function (req, res) {
+  index(req, res, null, +req.params.page);
 });
 
 app.get('/auth/callback', function (req, res) {

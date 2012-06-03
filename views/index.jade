@@ -1,2 +1,12 @@
 each item in items
   include partials/short_item
+
+.pagination
+  if page > 0
+    if page == 1
+      a(href='/') Més recents
+    else
+      a(href='/page' + (page - 1)) Més recents
+
+  if page < total_pages - 1
+    a(href='/page' + (page + 1)) Més antics
