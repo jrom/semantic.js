@@ -31,6 +31,6 @@ rss(version='2.0', 'xmlns:itunes'="http://www.itunes.com/dtds/podcast-1.0.dtd", 
         guid= 'http://semantic.cat/' + item.permalink
         itunes:author Sem&#224;ntic
         itunes:subtitle= markdown.parse(item.excerpt).slice(0,150)
-        itunes:summary= markdown.parse(item.body.split('---')[0])
+        itunes:summary= markdown.parse(item.body.split('---')[0]).slice(0,4000)
         itunes:explicit no
         itunes:duration= item.duration
