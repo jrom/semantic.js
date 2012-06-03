@@ -5,8 +5,8 @@ rss(version='2.0', 'xmlns:itunes'="http://www.itunes.com/dtds/podcast-1.0.dtd", 
     link="http://semantic.cat"
     description Podcast d'inform&#224;tica en catal&#224;
     language ca
-    pubDate= items[0].created_at
-    lastBuildDate= items[0].created_at
+    pubDate= moment(items[0].created_at).format('ddd, DD MMM YYYY HH:mm:ss ZZ')
+    lastBuildDate= moment(items[0].created_at).format('ddd, DD MMM YYYY HH:mm:ss ZZ')
     itunes:author Sem&#224;ntic
     itunes:subtitle Podcast d'inform&#224;tica en catal&#224;
     itunes:keywords inform&#224;tica, podcast, catal&#224;, enginyeria en inform&#224;tica, programaci&#243;, internet, tecnolog&#237;a
@@ -25,7 +25,7 @@ rss(version='2.0', 'xmlns:itunes'="http://www.itunes.com/dtds/podcast-1.0.dtd", 
       item
         title= "Capítol " + item.number  + ": " + item.title
         description= markdown.parse(item.body.split('---')[0])
-        pubDate= item.created_at
+        pubDate= moment(item.created_at).format('ddd, DD MMM YYYY HH:mm:ss ZZ')
         enclosure(type="audio/mpeg", length=item.size, url=item.url)
         link= 'http://semantic.cat/' + item.permalink
         guid= 'http://semantic.cat/' + item.permalink
