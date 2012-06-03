@@ -3,5 +3,5 @@ article(class= item.type)
   .body
     if item.type === 'episode' && item.url
       .player
-        audio(src=item.url)
+        audio(src=item.url, preload='none')
     != markdown.parse(item.excerpt)
