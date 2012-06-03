@@ -162,4 +162,17 @@ article {
       }
     }
   }
+
+  &.episode {
+    .player {
+      margin-bottom: 20px;
+      .mejs-container {
+        background: @linkColor;
+      }
+      .mejs-controls {
+        background: none;
+        #gradient .vertical(rgba(0,0,0,0), rgba(0,0,0,0.2));
+      }
+    }
+  }
 }
