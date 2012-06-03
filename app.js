@@ -161,6 +161,7 @@ app.get('/login/:provider', function (req, res) {
 
 app.get('/feed', function (req, res) {
   Item.findArray({type: 'episode'}, {sort: {created_at: -1}}, function (err, results) {
+    res.contentType('application/rss+xml');
     res.render('feed', {layout: false, items: results});
   });
 });
