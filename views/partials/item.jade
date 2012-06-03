@@ -1,7 +1,7 @@
 article(class= item.type)
   include item_head
   .body
-    if item.type === 'episode'
+    if item.type === 'episode' && item.url
       .player
         audio(src=item.url)
     != markdown.parse(item.body)
