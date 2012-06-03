@@ -1,7 +1,10 @@
 a.ribbon(href= item.permalink)
 header
   h2
-    a(href= item.permalink)= item.title
+    a(href= item.permalink)
+      if item.type === 'episode'
+        = '#' + item.number + ' '
+      = item.title
   ul.metadata
     if item.author
         li.meta.author= item.author
