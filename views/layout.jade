@@ -11,6 +11,8 @@ html
           h1.logo Semàntic
         .user
           if user
+            if user.admin
+              a.admin.button(href='/admin') Admin
             = user.name
           else
             a.login.button(href='/auth/twitter') Log in via Twitter
