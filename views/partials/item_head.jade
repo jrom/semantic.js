@@ -1,7 +1,8 @@
 a.ribbon(href= item.permalink)
 header
   h2
-    a(href= item.permalink)
+    - var url = item.type === 'link' ? item.url : item.permalink
+    a(href= url)
       if item.type === 'episode'
         = '#' + item.number + ' '
       = item.title
