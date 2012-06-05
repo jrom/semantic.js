@@ -1,0 +1,16 @@
+h2 Llistat d'usuaris
+
+table.table.table-striped
+  thead
+    tr
+      th Signed up
+      th Login
+      th Provider
+      th Admin
+  tbody
+    each user in users
+      tr
+        td= moment(user.created_at).format('DD/MM/YY')
+        td= user.login
+        td= user.provider
+        td= user.admin

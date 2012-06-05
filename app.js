@@ -228,6 +228,12 @@ app.get('/admin', authorize, function (req, res) {
   });
 });
 
+app.get('/admin/users', authorize, function (req, res) {
+  User.findArray({}, {sort: {admin: 1, created_at: -1}}, function (err, results) {
+    res.render('admin/users', { users: results });
+  });
+});
+
 app.get('/admin/new', authorize, function (req, res) {
   res.render('admin/new');
 });
