@@ -120,7 +120,7 @@ function index(req, res, resource, page) {
     , limit, skip, total_pages;
 
   page = page || 0;
-  limit = 20;
+  limit = 10;
   skip = page * limit;
 
   if (resource === 'podcast') {
