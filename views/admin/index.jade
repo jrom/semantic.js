@@ -7,6 +7,7 @@ table.table.table-striped
       th Type
       th Title
       th Permalink
+      th Comments
       th Author
   tbody
     each item in items
@@ -25,6 +26,7 @@ table.table.table-striped
         td
           a(href= '/admin/edit/' + item._id)= item.title
         td= item.permalink
+        td= item.comments ? item.comments.length : 0
         td= item.author
         td
           form(action='/admin/destroy/' + item._id, method='post', style='margin: 0')
